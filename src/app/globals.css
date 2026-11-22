@@ -2836,3 +2836,19 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     left: -54.800vw;
   }
 }
+
+/* Landningssidan på mobil: mer inzoomad bild och texten högre upp, över lavendeln vid telefonens fot */
+@media (max-width: 899px) {
+  .lp-art {
+    top: -127.500vw;
+    left: -76.600vw;
+    width: 300vw;
+  }
+  .lp-hero-copy {
+    padding-top: 114vw;
+  }
+  .lp-hero-copy::before {
+    top: 94vw;
+    background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.72) 20vw, rgba(var(--lp-dark), 0.84) 40vw, rgba(var(--lp-dark), 0.84) 100%);
+  }
+}

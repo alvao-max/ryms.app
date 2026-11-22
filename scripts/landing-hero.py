@@ -71,7 +71,7 @@ R, G, B = b[..., 0], b[..., 1], b[..., 2]
 lavender = (B > G + 14) & (R > G - 4) & (R + G + B > 200)
 poppy = (R > 170) & (G > 70) & (G < 175) & (B < 110) & (R > G + 40)
 pale = (R > 150) & (G > 120) & (B > 110) & (R > B + 12) & (np.abs(b - np.median(b[: 200 * K : 7, :: 7].reshape(-1, 3), axis=0)).sum(axis=2) > 70)
-flowers = Image.fromarray(((lavender | pale) * 255).astype(np.uint8)).filter(ImageFilter.MedianFilter(5)).filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(1.6))
+flowers = Image.fromarray((lavender * 255).astype(np.uint8)).filter(ImageFilter.MedianFilter(5)).filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(1.6))
 sky = np.median(b[: 200 * K : 7, :: 7].reshape(-1, 3), axis=0)
 foliage = ((np.abs(b - sky).sum(axis=2) > 95) | (b.sum(axis=2) < sky.sum() - 110)).astype(np.uint8) * 255
 fol = Image.fromarray(foliage).filter(ImageFilter.MedianFilter(5)).filter(ImageFilter.GaussianBlur(1.2))

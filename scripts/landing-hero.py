@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 A = lambda *p: os.path.join(ROOT, *p)
 K = 2  # arbetsskala
 # Telefonens läge i originalbilden (1143 x 1996): mittpunkt och höjd
-CX, CY, PH = 516, 792, 400  # PH = höjden på telefonens (lutade) yta
+CX, CY, PH = 478, 800, 330  # PH = höjden på telefonens (lutade) yta
 
 marked = Image.open(A("assets/landing/spiral-marked.jpg")).convert("RGB")
 clean = Image.open(A("assets/landing/spiral-clean.webp")).convert("RGB").resize(marked.size, Image.LANCZOS)
@@ -43,7 +43,7 @@ dark = b.sum(axis=2) < sky.sum() - 110
 foliage = ((dist > 95) | dark).astype(np.uint8) * 255
 fol = Image.fromarray(foliage).filter(ImageFilter.MedianFilter(5)).filter(ImageFilter.GaussianBlur(1.2))
 ramp = np.zeros((base.height, base.width), np.float32)
-top, bot = y0 + int(phone.height * 0.70), y0 + int(phone.height * 0.84)
+top, bot = y0 + int(phone.height * 0.66), y0 + int(phone.height * 0.82)
 ys = np.arange(base.height)[:, None]
 ramp[:] = np.clip((ys - top) / max(1, bot - top), 0, 1)
 front = ImageChops.multiply(fol, Image.fromarray((ramp * 255).astype(np.uint8)))

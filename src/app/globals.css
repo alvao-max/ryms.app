@@ -2271,3 +2271,8 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .backdrop::after {
   background: linear-gradient(180deg, rgba(12, 12, 13, 0.46) 0%, rgba(12, 12, 13, 0.24) 24%, rgba(12, 12, 13, 0.4) 56%, rgba(12, 12, 13, 0.88) 84%, var(--bg) 100%);
 }
+
+/* Lite mörkare slöja över fotot så att den vita texten syns bättre */
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(12, 12, 13, 0.56) 0%, rgba(12, 12, 13, 0.4) 24%, rgba(12, 12, 13, 0.54) 56%, rgba(12, 12, 13, 0.9) 84%, var(--bg) 100%);
+}

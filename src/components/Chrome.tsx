@@ -84,9 +84,9 @@ export function TabBar() {
   const tab = (href: string, label: string, Ico: (p: { size?: number; weight?: "regular" | "fill" }) => React.ReactNode) => {
     const on = path === href;
     return (
-      <Link href={href} className="tab" aria-current={on ? "page" : undefined} aria-label={label}>
-        <Ico size={22} weight={on ? "fill" : "regular"} />
-        {on && <span className="tab-label">{label}</span>}
+      <Link href={href} className="tab" aria-current={on ? "page" : undefined}>
+        <Ico size={23} weight={on ? "fill" : "regular"} />
+        <span className="tab-label">{label}</span>
       </Link>
     );
   };
@@ -97,10 +97,10 @@ export function TabBar() {
         {tab("/plan", "Plan", PlanIcon)}
         {tab("/sparat", t("Sparat", "Saved"), SavedIcon)}
         {tab("/transaktioner", t("Köp", "Spending"), ListIcon)}
-        <Link href="/ryms-det" className="ask" aria-label={t("Ryms det? Kolla ett köp", "Ryms det? Check a purchase")} data-testid="ask-fab">
-          <AskIcon size={22} />
-        </Link>
       </nav>
+      <Link href="/ryms-det" className="ask" aria-label={t("Ryms det? Kolla ett köp", "Ryms det? Check a purchase")} data-testid="ask-fab">
+        <AskIcon size={26} />
+      </Link>
     </div>
   );
 }

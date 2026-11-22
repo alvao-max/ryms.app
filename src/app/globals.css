@@ -2447,3 +2447,34 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   width: 27px;
   height: 27px;
 }
+
+/* Kategoricirklarna: ringen runt visar hur stor del av månadens budget som är använd */
+.chip-ring {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0.26);
+}
+.chip-progress {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+.chip-progress circle {
+  fill: none;
+  stroke-width: 3;
+}
+.chip-progress .track {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+.chip-progress .fill {
+  stroke: var(--text);
+  stroke-linecap: round;
+}
+.chip-ring.neg .fill {
+  stroke: var(--bad);
+}

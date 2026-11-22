@@ -79,22 +79,34 @@ export default async function Home() {
         <Landscape tone={m.tone} />
         <Top user={user} />
         {budgeted.length > 0 && (
-          <div className="chips" aria-label={t(`Kvar per kategori i ${mName}`, `Left per category in ${mName}`)}>
-            {budgeted.map((c) => (
-              <CalcButton
-                key={c.id}
-                className="chip"
-                title={calcTitle(c.name)}
-                rows={c.calc}
-                ariaLabel={t(`${c.name}: ${formatKr(c.figures.freeOre)} kvar${c.figures.reservedOre ? " till annat" : ""}. Visa uträkning.`, `${c.name}: ${formatKr(c.figures.freeOre)} left${c.figures.reservedOre ? " for other things" : ""}. Show calculation.`)}
-              >
-                <span className={`chip-ring${c.figures.freeOre < 0 ? " neg" : ""}`}>
-                  <CategoryIcon icon={c.icon} size={15} />
-                  <strong className="num">{formatKr(Math.trunc(c.figures.freeOre / 100) * 100, { unit: false })}</strong>
-                </span>
-                <span>{c.name}</span>
-              </CalcButton>
-            ))}
+          <div className="chips" aria-label={t(`Använt per kategori i ${mName}`, `Used per category in ${mName}`)}>
+            {budgeted.map((c) => {
+              // Siffran är det som är använt hittills; ringen visar hur stor del av månadens budget det är.
+              const spent = Math.max(0, c.figures.spentOre);
+              const share = c.figures.budgetOre > 0 ? spent / c.figures.budgetOre : spent > 0 ? 1 : 0;
+              const over = share > 1;
+              const C = 2 * Math.PI * 27.5;
+              return (
+                <CalcButton
+                  key={c.id}
+                  className="chip"
+                  title={calcTitle(c.name)}
+                  rows={c.calc}
+                  testId={`chip-${c.name}`}
+                  ariaLabel={t(`${c.name}: ${formatKr(spent)} använt, ${Math.round(share * 100)} procent av månadens budget. Visa uträkning.`, `${c.name}: ${formatKr(spent)} used, ${Math.round(share * 100)} percent of this month's budget. Show calculation.`)}
+                >
+                  <span className={`chip-ring${over ? " neg" : ""}`}>
+                    <svg className="chip-progress" viewBox="0 0 60 60" aria-hidden>
+                      <circle cx="30" cy="30" r="27.500" className="track" />
+                      {share > 0 && <circle cx="30" cy="30" r="27.500" className="fill" strokeDasharray={`${Math.min(1, share) * C} ${C}`} />}
+                    </svg>
+                    <CategoryIcon icon={c.icon} size={15} />
+                    <strong className="num">{formatKr(Math.trunc(spent / 100) * 100, { unit: false })}</strong>
+                  </span>
+                  <span>{c.name}</span>
+                </CalcButton>
+              );
+            })}
           </div>
         )}
 

@@ -168,6 +168,11 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
     await step("Inget ändras i budgeten förrän användaren bekräftar", async () => {
       await page.goto(`${BASE}/`);
       await expectText(page, "[data-testid=cat-Kläder]", "900 kr");
+      // Cirklarna överst visar använt belopp, och ringen andelen av budgeten (600 av 1 500 kr = 40 %).
+      await expectText(page, "[data-testid=chip-Kläder]", "600");
+      const dash = await page.locator("[data-testid=chip-Kläder] circle.fill").getAttribute("stroke-dasharray");
+      const [on, all] = dash.split(" ").map(Number);
+      assert(Math.abs(on / all - 0.4) < 0.005, `ringen visar ${on / all}, väntade 0,4`);
     });
 
     // ───────────────────────── Fall 4: rätta pris, spara, kolla igen

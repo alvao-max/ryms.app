@@ -81,33 +81,33 @@ export function DemoBar({ current, budgets }: { current: string; budgets: { key:
 export function TabBar() {
   const path = usePathname();
   const t = useT();
-  // Som i Instagram: menyn krymper mjukt i takt med att man skrollar nedåt och växer tillbaka
-  // i takt med att man skrollar uppåt. Storleken följer fingret i stället för att slå om vid en gräns.
+  // Som i Instagram: två lägen – stor och liten – med en enda mjuk övergång mellan dem.
+  // Läget byts först när man skrollat en bit åt samma håll, så små rörelser får inte menyn att hoppa.
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     let last = window.scrollY;
-    let p = 0; // 0 = full storlek, 1 = minst
-    let frame = 0;
-    const apply = () => {
-      frame = 0;
-      el.style.setProperty("--shrink", p.toFixed(3));
-      el.dataset.compact = p > 0.5 ? "1" : "0";
+    let travelled = 0; // sträcka åt samma håll sedan senaste riktningsbytet
+    let compact = false;
+    const set = (v: boolean) => {
+      if (v === compact) return;
+      compact = v;
+      el.dataset.compact = v ? "1" : "0";
     };
+    el.dataset.compact = "0";
     const onScroll = () => {
       const y = Math.max(0, window.scrollY);
       const dy = y - last;
       last = y;
-      p = y < 8 ? 0 : Math.min(1, Math.max(0, p + dy / 160));
-      if (!frame) frame = requestAnimationFrame(apply);
+      if (dy === 0) return;
+      travelled = Math.sign(dy) === Math.sign(travelled) ? travelled + dy : dy;
+      if (y < 16) set(false);
+      else if (travelled > 48) set(true);
+      else if (travelled < -28) set(false);
     };
-    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, [path]);
   const tab = (href: string, label: string, Ico: (p: { size?: number; weight?: "regular" | "fill" }) => React.ReactNode) => {
     const on = path === href;

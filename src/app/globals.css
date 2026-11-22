@@ -2765,3 +2765,13 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     width: min(27vw, 380px);
   }
 }
+
+/* Menyn: två lägen med en enda mjuk, fjädrande övergång (som i Instagram) */
+.tabbar nav,
+.tabbar.compact nav {
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.tabbar[data-compact="1"] nav {
+  transform: scale(0.8);
+}

@@ -31,7 +31,7 @@ const serverToBrowser = {
 
 const mime = { ".jpg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml" };
 const assets = {};
-for (const f of ["bg/hero.jpg", "bg/fog.png", "bg/login.jpg", "landing/hero.jpg", "landing/moss.jpg", "brand/ryms-wordmark.png", "demo/jacka.svg", "demo/kangor.svg", "demo/horlurar.svg", "demo/lampa.svg"]) {
+for (const f of ["bg/hero.jpg", "bg/login.jpg", "landing/hero.jpg", "landing/moss.jpg", "brand/ryms-wordmark.png", "demo/jacka.svg", "demo/kangor.svg", "demo/horlurar.svg", "demo/lampa.svg"]) {
   assets["/" + f] = `data:${mime[path.extname(f)]};base64,${fs.readFileSync(path.join(root, "public", f)).toString("base64")}`;
 }
 

@@ -2218,3 +2218,26 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     display: none;
   }
 }
+
+/* ═════════ Mosskullen: ljuset mellan träden andas, blombladen faller ═════════ */
+.backdrop img.photo {
+  object-position: 50% 50%;
+  filter: none;
+}
+.backdrop .rays {
+  background: radial-gradient(42% 34% at 54% 9%, rgba(255, 250, 225, 0.5) 0%, rgba(255, 250, 225, 0.14) 46%, rgba(255, 250, 225, 0) 100%);
+  animation: glow 9s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    opacity: 0.2;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(12, 12, 13, 0.5) 0%, rgba(12, 12, 13, 0.2) 26%, rgba(12, 12, 13, 0.3) 56%, rgba(12, 12, 13, 0.86) 84%, var(--bg) 100%);
+}

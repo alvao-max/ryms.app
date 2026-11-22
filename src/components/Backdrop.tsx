@@ -1,34 +1,22 @@
 /**
- * Fotot i toppen av appen: en mossklädd kulle i skogen. Blomblad singlar ned och ljuset
- * mellan träden andas långsamt, så att bilden känns levande – som en stilla film.
+ * Fotot i toppen av appen: gröna kullar under en ljus himmel. Gräset böljar långsamt, som i vinden:
+ * en andra kopia av bilden, maskad till kullarna, förskjuts av ett mjukt brus som sakta ändras.
  */
-/** Blombladen som singlar ned: fasta värden, så att servern och webbläsaren ritar samma sak. */
-const PETALS = [
-  { x: 6, s: 7, d: 19, o: 3, c: "#f2a6a0" },
-  { x: 17, s: 5, d: 24, o: 11, c: "#f6d9a8" },
-  { x: 29, s: 8, d: 17, o: 7, c: "#ef8f8a" },
-  { x: 41, s: 5, d: 27, o: 19, c: "#f7e3c2" },
-  { x: 52, s: 7, d: 21, o: 1, c: "#f4b3ad" },
-  { x: 63, s: 6, d: 25, o: 14, c: "#f6d9a8" },
-  { x: 71, s: 8, d: 18, o: 9, c: "#ee8a7c" },
-  { x: 82, s: 5, d: 29, o: 22, c: "#f7e3c2" },
-  { x: 90, s: 7, d: 20, o: 5, c: "#f2a6a0" },
-  { x: 36, s: 4, d: 31, o: 16, c: "#f6d9a8" },
-  { x: 58, s: 4, d: 33, o: 26, c: "#f4b3ad" },
-  { x: 77, s: 6, d: 23, o: 12, c: "#ef8f8a" },
-];
-
 export function Backdrop() {
   return (
     <div className="backdrop" aria-hidden>
+      <svg width="0" height="0" style={{ position: "absolute" }} focusable="false">
+        <filter id="ryms-wave" x="-6%" y="-6%" width="112%" height="112%" colorInterpolationFilters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.006 0.016" numOctaves="2" seed="4" result="noise">
+            <animate attributeName="baseFrequency" dur="16s" values="0.006 0.016;0.011 0.026;0.007 0.019;0.006 0.016" keyTimes="0;0.4;0.75;1" repeatCount="indefinite" />
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="photo" src="/bg/hero.jpg" alt="" />
-      <div className="rays" />
-      <div className="petals">
-        {PETALS.map((p, i) => (
-          <i key={i} style={{ left: `${p.x}%`, width: p.s, height: p.s * 1.7, background: p.c, animationDuration: `${p.d}s, ${p.d / 3.1}s`, animationDelay: `${-p.o}s, ${-p.o / 2}s` }} />
-        ))}
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="wave" src="/bg/hero.jpg" alt="" />
     </div>
   );
 }

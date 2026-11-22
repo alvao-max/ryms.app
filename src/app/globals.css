@@ -2241,3 +2241,20 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .backdrop::after {
   background: linear-gradient(180deg, rgba(12, 12, 13, 0.5) 0%, rgba(12, 12, 13, 0.2) 26%, rgba(12, 12, 13, 0.3) 56%, rgba(12, 12, 13, 0.86) 84%, var(--bg) 100%);
 }
+
+/* ═════════ Gröna kullar under ljus himmel: gräset böljar, himlen står still ═════════ */
+.backdrop img.photo,
+.backdrop img.wave {
+  object-position: 50% 30%;
+  filter: none;
+}
+.backdrop img.wave {
+  position: absolute;
+  inset: 0;
+  filter: url(#ryms-wave);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, #000 38%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 26%, #000 38%);
+}
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(12, 12, 13, 0.5) 0%, rgba(12, 12, 13, 0.26) 24%, rgba(12, 12, 13, 0.36) 56%, rgba(12, 12, 13, 0.88) 84%, var(--bg) 100%);
+}

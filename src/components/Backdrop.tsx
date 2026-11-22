@@ -10,7 +10,7 @@ export function Backdrop() {
           <feTurbulence type="fractalNoise" baseFrequency="0.006 0.016" numOctaves="2" seed="4" result="noise">
             <animate attributeName="baseFrequency" dur="16s" values="0.006 0.016;0.011 0.026;0.007 0.019;0.006 0.016" keyTimes="0;0.4;0.75;1" repeatCount="indefinite" />
           </feTurbulence>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="16" xChannelSelector="R" yChannelSelector="G" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </svg>
       {/* eslint-disable-next-line @next/next/no-img-element */}

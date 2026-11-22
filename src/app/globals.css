@@ -2298,3 +2298,19 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   background: rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
 }
+
+/* ═════════ Mörka kullar i kvällsljus. Bilden är redan mörk, så slöjan är mycket tunn. ═════════ */
+.backdrop img.photo,
+.backdrop img.wave {
+  object-position: 50% 30%;
+}
+.backdrop img.wave {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 8%, #000 20%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 8%, #000 20%);
+}
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.14) 70%, rgba(12, 12, 13, 0.8) 88%, var(--bg) 100%);
+}
+body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.3) 45%, rgba(12, 12, 13, 0.9) 80%, var(--bg) 100%);
+}

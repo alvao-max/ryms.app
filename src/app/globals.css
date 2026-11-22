@@ -2054,3 +2054,17 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .lp .card {
   background: rgba(8, 20, 12, 0.52);
 }
+
+/* Gräsfältet böljar: en förskjuten kopia av fotot, synlig bara över gräset */
+.backdrop img.wave {
+  position: absolute;
+  inset: 0;
+  filter: url(#ryms-wave);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 44%, #000 56%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 44%, #000 56%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop img.wave {
+    display: none;
+  }
+}

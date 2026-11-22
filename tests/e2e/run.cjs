@@ -524,20 +524,14 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
         await lp.waitForTimeout(400);
         await lp.screenshot({ path: path.join(SHOTS, w > 1000 ? "30-landning-dator.png" : "31-landning-mobil.png") });
         await lp.screenshot({ path: path.join(SHOTS, w > 1000 ? "32-landning-dator-hela.png" : "33-landning-mobil-hela.png"), fullPage: true });
-        if (w > 1000) {
-          const copy = await lp.locator(".lp-hero-copy").boundingBox();
-          const photo = await lp.locator(".lp-hero-photo").boundingBox();
-          assert(photo.width >= 1439 && copy.x + copy.width < 1440 * 0.3, "på dator ska fotot fylla bredden och texten stå till vänster om telefonen");
-        }
+        const art = await lp.locator(".lp-art img").boundingBox();
+        const copy = await lp.locator(".lp-hero-copy").boundingBox();
+        assert(art.height > 1500, "bilden ska löpa nedåt längs sidan");
+        if (w > 1000) assert(copy.x > 1440 * 0.52, "på dator ska texten stå till höger om telefonen, över himlen");
         // Hemsidan leder till App Store – ingen demo och ingen inloggning här.
         assert((await lp.locator("[data-testid=app-store]").count()) === 1, "App Store-knappen saknas i hjälten");
         assert((await lp.locator("[data-testid=start-demo]").count()) === 0, "demon ska inte finnas på landningssidan");
         assert(!(await lp.locator("[data-testid=landing]").innerText()).includes("Logga in"), "inloggning ska inte finnas på landningssidan");
-        if (w < 1000) {
-          const photo = await lp.locator(".lp-hero-photo").boundingBox();
-          const h1 = await lp.locator(".lp-hero-copy h1").boundingBox();
-          assert(photo.y < 5 && h1.y > photo.y + 200, "på mobil ska bilden ligga överst och rubriken under");
-        }
         await c.close();
       }
     });

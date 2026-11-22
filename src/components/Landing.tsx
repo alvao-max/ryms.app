@@ -43,9 +43,9 @@ export async function Landing() {
 
   return (
     <div className="lp" data-testid="landing">
-      <div className="lp-moss" aria-hidden>
+      <div className="lp-art" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/landing/moss.jpg" alt="" />
+        <img src="/landing/spiral.jpg" alt="" />
       </div>
 
       <header className="lp-nav">
@@ -63,11 +63,7 @@ export async function Landing() {
         </div>
       </header>
 
-      <section className="lp-hero">
-        <div className="lp-hero-photo">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/landing/hero.jpg" alt={t("En telefon med Ryms på skärmen, lutad mot mossa med små vita blommor", "A phone showing Ryms, resting on moss with small white flowers")} />
-        </div>
+      <section className="lp-hero" role="img" aria-label={t("En telefon med Ryms på skärmen, inbäddad i en slinga av gräs och ängsblommor", "A phone showing Ryms, nestled in a spiral of grass and meadow flowers")}>
         <div className="lp-hero-copy">
           <span className="caps">{t("Budgetappen för butiken", "The budgeting app for the shop floor")}</span>
           <h1>Ryms det?</h1>

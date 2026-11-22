@@ -2566,3 +2566,202 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     transform: none;
   }
 }
+
+/* ═════════ Landningssidan, version 3: blomsterspiralen löper längs hela sidan ═════════
+   Telefonen sitter i bilden vid (43,7 %, 38,7 %); måtten nedan placerar den i hjälten. */
+.lp {
+  --lp-dark: 14, 18, 16;
+  --lp-sky: #cfd4da;
+  background: #171c19;
+  overflow: clip;
+}
+.lp-art {
+  position: absolute;
+  z-index: 0;
+  top: -124vw;
+  left: -84.600vw;
+  width: 308vw;
+  pointer-events: none;
+}
+.lp-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* botten av bilden tonar ut i sidans mörka färg */
+.lp-art::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 22%;
+  background: linear-gradient(180deg, rgba(23, 28, 25, 0) 0%, #171c19 92%);
+}
+.lp > :not(.lp-art) {
+  position: relative;
+  z-index: 1;
+}
+.lp-nav {
+  position: absolute;
+}
+.lp-nav .mark {
+  filter: brightness(0) saturate(100%) invert(9%) sepia(8%) saturate(900%) hue-rotate(100deg);
+}
+.lp-nav nav {
+  color: rgba(20, 26, 22, 0.78);
+}
+.lp-nav nav a:hover {
+  color: #141a16;
+}
+.lp-nav .lang {
+  background: rgba(20, 26, 22, 0.72);
+}
+.lp-store {
+  background: #141a16;
+  color: var(--text);
+}
+.lp-final .lp-store {
+  background: var(--text);
+  color: #10140f;
+}
+/* Hjälten: telefonen syns överst, texten under den över en mörk toning */
+.lp-hero {
+  display: block;
+  padding: 0;
+  background: none;
+  overflow: visible;
+  min-height: 0;
+  aspect-ratio: auto;
+  max-height: none;
+}
+.lp-hero-copy {
+  position: relative;
+  margin-top: 0;
+  padding: 150vw 24px 40px;
+  transform: none;
+  width: auto;
+  min-width: 0;
+  left: auto;
+  top: auto;
+}
+.lp-hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 128vw -24px -60px;
+  background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0%, rgba(var(--lp-dark), 0.86) 26%, rgba(var(--lp-dark), 0.9) 100%);
+}
+.lp-hero-copy .lp-store {
+  background: var(--text);
+  color: #10140f;
+}
+/* Sektionerna: mörk toning bakom text och kort, bilden syns mellan dem */
+.lp-section::before,
+.lp-final::before {
+  background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0%, rgba(var(--lp-dark), 0.74) 14%, rgba(var(--lp-dark), 0.74) 86%, rgba(var(--lp-dark), 0) 100%);
+}
+.lp .card {
+  background: rgba(16, 20, 18, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.lp-footer {
+  background: #171c19;
+}
+@media (min-width: 900px) {
+  .lp-art {
+    top: -45vw;
+    left: -7.500vw;
+    width: 115vw;
+  }
+  .lp-hero {
+    position: relative;
+    height: 60vw;
+    min-height: 640px;
+    max-height: none;
+    width: auto;
+  }
+  .lp-hero-copy {
+    position: absolute;
+    top: 50%;
+    left: max(40px, calc((100vw - 1360px) / 2));
+    width: min(24vw, 350px);
+    min-width: 260px;
+    padding: 0;
+    transform: translateY(-50%);
+  }
+  .lp-hero-copy::before {
+    display: none;
+  }
+  .lp-hero-copy .caps {
+    color: rgba(20, 26, 22, 0.7);
+  }
+  .lp-hero-copy h1,
+  .lp-hero-copy p,
+  .lp-fine {
+    color: #141a16;
+    text-shadow: none;
+  }
+  .lp-fine {
+    opacity: 0.66;
+  }
+  .lp-hero-copy .lp-store {
+    background: #141a16;
+    color: var(--text);
+  }
+}
+@media (max-width: 899px) {
+  .lp-nav .mark {
+    filter: brightness(0) saturate(100%) invert(9%) sepia(8%) saturate(900%) hue-rotate(100deg);
+  }
+}
+
+/* Landningssidan: en enda mjuk mörk toning nedanför hjälten (inga band), och text till höger om telefonen på dator */
+.lp-section::before,
+.lp-final::before {
+  display: none;
+}
+.lp-hero-copy::before {
+  bottom: -9000px;
+  background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.8) 34vw, rgba(var(--lp-dark), 0.8) 100%);
+}
+.lp h2 {
+  text-shadow: 0 1px 20px rgba(var(--lp-dark), 0.8);
+}
+@media (min-width: 900px) {
+  .lp-art {
+    top: -52.500vw;
+    left: -16.600vw;
+    width: 125vw;
+  }
+  .lp-hero {
+    height: 62vw;
+  }
+  .lp-hero-copy {
+    top: 21vw;
+    left: 58vw;
+    width: min(30vw, 420px);
+    transform: none;
+  }
+  .lp-hero-copy h1 {
+    font-size: clamp(48px, 5.600vw, 84px);
+  }
+  .lp-hero + .lp-section::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    top: -14vw;
+    bottom: -9000px;
+    background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.78) 20vw, rgba(var(--lp-dark), 0.78) 100%);
+    pointer-events: none;
+  }
+}
+@media (min-width: 900px) {
+  .lp-hero-copy {
+    top: 12vw;
+    left: 60vw;
+    width: min(27vw, 380px);
+  }
+}

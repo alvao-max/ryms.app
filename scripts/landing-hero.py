@@ -10,7 +10,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 A = lambda *p: os.path.join(ROOT, *p)
 K = 2  # arbetsskala
 # Telefonens läge i originalbilden (1143 x 1996): mittpunkt och höjd
-CX, CY, PH = 500, 772, 500
+CX, CY, PH = 516, 792, 400  # PH = höjden på telefonens (lutade) yta
 
 marked = Image.open(A("assets/landing/spiral-marked.jpg")).convert("RGB")
 clean = Image.open(A("assets/landing/spiral-clean.webp")).convert("RGB").resize(marked.size, Image.LANCZOS)
@@ -22,6 +22,7 @@ base = Image.composite(clean, marked, redmask)
 base = base.resize((base.width * K, base.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
 
 phone = Image.open(A("assets/landing/phone.png")).convert("RGBA")
+phone = phone.crop(phone.getbbox())
 h = PH * K
 phone = phone.resize((int(phone.width * h / phone.height), h), Image.LANCZOS)
 x0, y0 = CX * K - phone.width // 2, CY * K - phone.height // 2
@@ -29,7 +30,7 @@ x0, y0 = CX * K - phone.width // 2, CY * K - phone.height // 2
 # Skugga bakom telefonen
 alpha = phone.split()[3]
 shadow = Image.new("L", base.size, 0)
-shadow.paste(alpha, (x0 + 14 * K, y0 + 18 * K))
+shadow.paste(alpha, (x0 + 10 * K, y0 + 22 * K))
 shadow = shadow.filter(ImageFilter.GaussianBlur(16 * K)).point(lambda v: int(v * 0.42))
 out = Image.composite(Image.new("RGB", base.size, (20, 24, 22)), base, shadow)
 out.paste(phone, (x0, y0), phone)
@@ -42,7 +43,7 @@ dark = b.sum(axis=2) < sky.sum() - 110
 foliage = ((dist > 95) | dark).astype(np.uint8) * 255
 fol = Image.fromarray(foliage).filter(ImageFilter.MedianFilter(5)).filter(ImageFilter.GaussianBlur(1.2))
 ramp = np.zeros((base.height, base.width), np.float32)
-top, bot = y0 + int(phone.height * 0.80), y0 + int(phone.height * 0.90)
+top, bot = y0 + int(phone.height * 0.70), y0 + int(phone.height * 0.84)
 ys = np.arange(base.height)[:, None]
 ramp[:] = np.clip((ys - top) / max(1, bot - top), 0, 1)
 front = ImageChops.multiply(fol, Image.fromarray((ramp * 255).astype(np.uint8)))

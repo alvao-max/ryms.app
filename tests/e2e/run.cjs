@@ -505,7 +505,7 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
       await cp.waitForFunction(() => document.body.innerText.replace(/\u00a0/g, " ").includes("9 480 kr"));
       await c.close();
     });
-    await step("Landningssidan: fungerar på dator och mobil, och leder in i demon", async () => {
+    await step("Landningssidan: fungerar på dator och mobil, och leder till App Store", async () => {
       for (const [w, h] of [[1440, 900], [390, 780]]) {
         const c = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: w > 1000 ? 1 : 2, locale: "sv-SE" });
         const lp = await c.newPage();
@@ -524,8 +524,15 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
           const photo = await lp.locator(".lp-hero-photo").boundingBox();
           assert(photo.width >= 1439 && copy.x + copy.width < 1440 * 0.3, "på dator ska fotot fylla bredden och texten stå till vänster om telefonen");
         }
-        await lp.click("[data-testid=start-demo]");
-        await lp.waitForSelector("[data-testid=left-figure]");
+        // Hemsidan leder till App Store – ingen demo och ingen inloggning här.
+        assert((await lp.locator("[data-testid=app-store]").count()) === 1, "App Store-knappen saknas i hjälten");
+        assert((await lp.locator("[data-testid=start-demo]").count()) === 0, "demon ska inte finnas på landningssidan");
+        assert(!(await lp.locator("[data-testid=landing]").innerText()).includes("Logga in"), "inloggning ska inte finnas på landningssidan");
+        if (w < 1000) {
+          const photo = await lp.locator(".lp-hero-photo").boundingBox();
+          const h1 = await lp.locator(".lp-hero-copy h1").boundingBox();
+          assert(photo.y < 5 && h1.y > photo.y + 200, "på mobil ska bilden ligga överst och rubriken under");
+        }
         await c.close();
       }
     });

@@ -1,20 +1,29 @@
-import Link from "next/link";
-import { startDemoAction } from "@/app/actions";
+import type { ReactNode } from "react";
 import { getT } from "@/lib/locale";
 import { Mark } from "./Chrome";
 import { AskIcon, BankIcon, CameraIcon, CheckIcon, PlanIcon, ShieldIcon, WalletIcon } from "./icons";
 import { LanguageSwitch } from "./Locale";
 
-/** Landningssidan: samma formspråk som appen, för dator och mobil. Visas för den som inte är inloggad. */
+/**
+ * Länken till appen i App Store. Sätt NEXT_PUBLIC_APP_STORE_URL när appen finns där;
+ * tills dess leder knappen ingenstans.
+ */
+const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || "#";
+
+function StoreButton({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
+  return (
+    <a href={APP_STORE_URL} className={`lp-store ${className}`} data-testid={id ?? "app-store"} rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M12 4v11M7.500 10.500L12 15l4.500-4.500M5 19h14" />
+      </svg>
+      {children}
+    </a>
+  );
+}
+
+/** Hemsidans landningssida, för dator och mobil. Leder till appen i App Store. */
 export async function Landing() {
   const { t } = await getT();
-  const Demo = ({ className = "btn", label, id = "start-demo" }: { className?: string; label?: string; id?: string }) => (
-    <form action={startDemoAction}>
-      <button className={className} data-testid={id}>
-        {label ?? t("Prova demon", "Try the demo")}
-      </button>
-    </form>
-  );
   const steps = [
     { icon: <CameraIcon size={22} />, title: t("Fota, ladda upp eller skriv", "Snap, upload or type"), text: t("Ta en bild i butiken, ladda upp ett foto eller en skärmbild du redan har, eller skriv in vara och pris själv.", "Take a photo in the shop, upload a photo or screenshot you already have, or type in the item and price yourself.") },
     { icon: <WalletIcon size={22} />, title: t("Ryms räknar", "Ryms does the maths"), text: t("Köpet jämförs med din budget, räkningarna som väntar före lön, dina planerade köp och ditt sparande.", "The purchase is checked against your budget, the bills due before payday, your planned purchases and your savings.") },
@@ -30,9 +39,15 @@ export async function Landing() {
     { icon: <PlanIcon size={22} />, title: t("Siffror du kan lita på", "Numbers you can trust"), text: t("Alla belopp räknas ut av appen, öre för öre. Du kan trycka på varje siffra och se hur den är uträknad.", "Every amount is calculated by the app, to the öre. Tap any figure to see how it was worked out.") },
     { icon: <ShieldIcon size={22} />, title: t("Dina bilder är dina", "Your photos stay yours"), text: t("Bilden används för att känna igen vara och pris och sparas inte, om du inte själv väljer det.", "The photo is used to recognise the item and price and is not saved unless you choose to.") },
   ];
+  const store = t("Ladda ner i App Store", "Download on the App Store");
 
   return (
     <div className="lp" data-testid="landing">
+      <div className="lp-moss" aria-hidden>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/landing/moss.jpg" alt="" />
+      </div>
+
       <header className="lp-nav">
         <Mark />
         <nav aria-label={t("Sidans delar", "Page sections")}>
@@ -42,9 +57,9 @@ export async function Landing() {
         </nav>
         <div className="lp-nav-actions">
           <LanguageSwitch />
-          <Link href="/logga-in" className="btn ghost small">
-            {t("Logga in", "Log in")}
-          </Link>
+          <StoreButton className="small" id="app-store-nav">
+            {t("Ladda ner", "Download")}
+          </StoreButton>
         </div>
       </header>
 
@@ -56,19 +71,21 @@ export async function Landing() {
         <div className="lp-hero-copy">
           <span className="caps">{t("Budgetappen för butiken", "The budgeting app for the shop floor")}</span>
           <h1>Ryms det?</h1>
-          <p>{t("Fota eller ladda upp en bild på det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.", "Does it fit? Snap or upload a picture of what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.")}</p>
+          <p>
+            {t(
+              "Fota eller ladda upp en bild på det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.",
+              "Does it fit? Snap or upload a picture of what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.",
+            )}
+          </p>
           <div className="lp-cta">
-            <Demo />
-            <Link href="/skapa-konto" className="btn ghost">
-              {t("Skapa konto", "Create account")}
-            </Link>
+            <StoreButton>{store}</StoreButton>
           </div>
-          <span className="lp-fine">{t("Demon använder påhittade uppgifter. Ingen bank behövs.", "The demo uses made-up data. No bank needed.")}</span>
+          <span className="lp-fine">{t("För iPhone. Du behöver ingen bank för att komma igång.", "For iPhone. You don't need a bank to get started.")}</span>
         </div>
       </section>
 
       <section className="lp-section" id="sa-funkar-det">
-        <span className="caps lilac">{t("Så funkar det", "How it works")}</span>
+        <span className="caps">{t("Så funkar det", "How it works")}</span>
         <h2>{t("Från prislapp till svar på några sekunder", "From price tag to answer in seconds")}</h2>
         <div className="lp-grid">
           {steps.map((s, i) => (
@@ -84,7 +101,7 @@ export async function Landing() {
       </section>
 
       <section className="lp-section" id="svar">
-        <span className="caps lilac">{t("Svaren", "The answers")}</span>
+        <span className="caps">{t("Svaren", "The answers")}</span>
         <h2>{t("Ett rakt svar, med kronorna som förklarar det", "A straight answer, with the numbers that explain it")}</h2>
         <div className="lp-grid">
           {answers.map((a, i) => (
@@ -98,7 +115,7 @@ export async function Landing() {
       </section>
 
       <section className="lp-section" id="trygghet">
-        <span className="caps lilac">{t("Trygghet", "Trust")}</span>
+        <span className="caps">{t("Trygghet", "Trust")}</span>
         <h2>{t("Du har kontrollen hela vägen", "You stay in control throughout")}</h2>
         <div className="lp-grid">
           {trust.map((s, i) => (
@@ -113,9 +130,9 @@ export async function Landing() {
 
       <section className="lp-final">
         <AskIcon size={30} />
-        <h2>{t("Prova själv med samma jacka", "Try it yourself with the same jacket")}</h2>
-        <p>{t("I demon finns fyra påhittade budgetar. Se hur svaret ändras – utan konto och utan bank.", "The demo has four made-up budgets. See how the answer changes – no account and no bank.")}</p>
-        <Demo id="start-demo-end" />
+        <h2>{t("Ha svaret i fickan nästa gång", "Have the answer in your pocket next time")}</h2>
+        <p>{t("Ladda ner Ryms och fråga innan du köper.", "Download Ryms and ask before you buy.")}</p>
+        <StoreButton id="app-store-end">{store}</StoreButton>
       </section>
 
       <footer className="lp-footer">

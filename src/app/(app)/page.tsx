@@ -100,14 +100,6 @@ export default async function Home() {
 
         {totalBudget > 0 && (
           <svg className="arc" viewBox="0 0 360 132" role="img" aria-label={t(`${formatKr(totalSpent)} av månadens budget på ${formatKr(totalBudget)} är använt`, `${formatKr(totalSpent)} of this month's ${formatKr(totalBudget)} budget is used`)}>
-            <defs>
-              <linearGradient id="ryms-bloom" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#f2954a" />
-                <stop offset="0.34" stopColor="#e8a0b4" />
-                <stop offset="0.66" stopColor="#a98be0" />
-                <stop offset="1" stopColor="#4f9a8f" />
-              </linearGradient>
-            </defs>
             <path d="M30 118 Q180 -26 330 118" fill="none" stroke="rgba(255,255,255,.45)" strokeWidth="1.300" />
             <path d="M30 118 Q180 -26 330 118" fill="none" stroke="#f4f0e6" strokeWidth="4.500" strokeLinecap="round" pathLength={100} strokeDasharray={`${Math.max(0.5, used * 100)} 100`} />
             {[

@@ -2175,3 +2175,46 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .backdrop img.photo {
   filter: saturate(0.7) brightness(0.9);
 }
+
+/* Blomblad som singlar ned genom bilden */
+.backdrop .petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 70%, transparent 96%);
+}
+.backdrop .petals i {
+  position: absolute;
+  top: -4%;
+  border-radius: 80% 10% 80% 10%;
+  opacity: 0.85;
+  box-shadow: 0 0 6px rgba(255, 235, 215, 0.25);
+  animation-name: petal-fall, petal-sway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: normal, alternate;
+  will-change: transform, translate;
+}
+@keyframes petal-fall {
+  from {
+    transform: translate3d(0, -20px, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(70px, 760px, 0) rotate(540deg);
+  }
+}
+@keyframes petal-sway {
+  from {
+    translate: -14px 0;
+  }
+  to {
+    translate: 18px 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop .petals {
+    display: none;
+  }
+}

@@ -2276,3 +2276,25 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .backdrop::after {
   background: linear-gradient(180deg, rgba(12, 12, 13, 0.56) 0%, rgba(12, 12, 13, 0.4) 24%, rgba(12, 12, 13, 0.54) 56%, rgba(12, 12, 13, 0.9) 84%, var(--bg) 100%);
 }
+
+/* ═════════ Blomsterkullar under blå himmel. Tunn, jämn svart slöja – ingen grå dimma. ═════════ */
+.backdrop img.photo,
+.backdrop img.wave {
+  object-position: 50% 58%;
+  filter: none;
+}
+.backdrop img.wave {
+  filter: url(#ryms-wave);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, transparent 34%, #000 46%);
+  mask-image: linear-gradient(180deg, transparent 0%, transparent 34%, #000 46%);
+}
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 70%, rgba(12, 12, 13, 0.8) 88%, var(--bg) 100%);
+}
+body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.4) 45%, rgba(12, 12, 13, 0.9) 80%, var(--bg) 100%);
+}
+.chip-ring {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.32);
+}

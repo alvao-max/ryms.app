@@ -2816,3 +2816,23 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     background: linear-gradient(180deg, rgba(240, 242, 244, 0.94) 0%, rgba(240, 242, 244, 0.8) 52%, rgba(240, 242, 244, 0) 100%);
   }
 }
+
+/* Landningssidan på mobil: telefonen större och mitt i bild */
+@media (max-width: 899px) {
+  .lp-art {
+    top: -91vw;
+    left: -59.300vw;
+    width: 250vw;
+  }
+  .lp-hero-copy {
+    padding-top: 128vw;
+  }
+  .lp-hero-copy::before {
+    top: 110vw;
+  }
+}
+@media (max-width: 899px) {
+  .lp-art {
+    left: -54.800vw;
+  }
+}

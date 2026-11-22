@@ -2797,3 +2797,22 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   width: 28px;
   height: 28px;
 }
+
+/* Landningssidan på mobil: utzoomad bild, texten högre upp och ljus toning bakom logotypen */
+@media (max-width: 899px) {
+  .lp-art {
+    top: -62.600vw;
+    left: -46.300vw;
+    width: 220vw;
+  }
+  .lp-hero-copy {
+    padding-top: 114vw;
+  }
+  .lp-hero-copy::before {
+    top: 96vw;
+  }
+  .lp-nav {
+    padding-bottom: 46px;
+    background: linear-gradient(180deg, rgba(240, 242, 244, 0.94) 0%, rgba(240, 242, 244, 0.8) 52%, rgba(240, 242, 244, 0) 100%);
+  }
+}

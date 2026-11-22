@@ -5,16 +5,6 @@ import { Mark } from "./Chrome";
 import { AskIcon, BankIcon, CameraIcon, CheckIcon, PlanIcon, ShieldIcon, WalletIcon } from "./icons";
 import { LanguageSwitch } from "./Locale";
 
-/** En telefon med en riktig skärmbild av appen. */
-function Phone({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
-  return (
-    <div className={`lp-phone ${className}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} />
-    </div>
-  );
-}
-
 /** Landningssidan: samma formspråk som appen, för dator och mobil. Visas för den som inte är inloggad. */
 export async function Landing() {
   const { t } = await getT();
@@ -26,7 +16,7 @@ export async function Landing() {
     </form>
   );
   const steps = [
-    { icon: <CameraIcon size={22} />, title: t("Fota eller skriv", "Snap or type"), text: t("Ta en bild på varan och prislappen, välj en skärmbild från en nätbutik eller skriv in vara och pris.", "Take a photo of the item and price tag, pick a screenshot from a web shop, or type in the item and price.") },
+    { icon: <CameraIcon size={22} />, title: t("Fota, ladda upp eller skriv", "Snap, upload or type"), text: t("Ta en bild i butiken, ladda upp ett foto eller en skärmbild du redan har, eller skriv in vara och pris själv.", "Take a photo in the shop, upload a photo or screenshot you already have, or type in the item and price yourself.") },
     { icon: <WalletIcon size={22} />, title: t("Ryms räknar", "Ryms does the maths"), text: t("Köpet jämförs med din budget, räkningarna som väntar före lön, dina planerade köp och ditt sparande.", "The purchase is checked against your budget, the bills due before payday, your planned purchases and your savings.") },
     { icon: <CheckIcon size={22} />, title: t("Du bestämmer", "You decide"), text: t("Du får svaret i kronor och ser varför. Inget ändras i budgeten förrän du själv säger att du köpte den.", "You get the answer in kronor and see why. Nothing changes in your budget until you say you bought it.") },
   ];
@@ -59,19 +49,14 @@ export async function Landing() {
       </header>
 
       <section className="lp-hero">
-        <div className="lp-hero-bg" aria-hidden>
+        <div className="lp-hero-photo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/bg/hero.jpg" alt="" />
+          <img src="/landing/hero.jpg" alt={t("En telefon med Ryms på skärmen, lutad mot mossa med små vita blommor", "A phone showing Ryms, resting on moss with small white flowers")} />
         </div>
         <div className="lp-hero-copy">
           <span className="caps">{t("Budgetappen för butiken", "The budgeting app for the shop floor")}</span>
           <h1>Ryms det?</h1>
-          <p>
-            {t(
-              "Fota det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.",
-              "Does it fit? Snap what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.",
-            )}
-          </p>
+          <p>{t("Fota eller ladda upp en bild på det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.", "Does it fit? Snap or upload a picture of what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.")}</p>
           <div className="lp-cta">
             <Demo />
             <Link href="/skapa-konto" className="btn ghost">
@@ -79,10 +64,6 @@ export async function Landing() {
             </Link>
           </div>
           <span className="lp-fine">{t("Demon använder påhittade uppgifter. Ingen bank behövs.", "The demo uses made-up data. No bank needed.")}</span>
-        </div>
-        <div className="lp-hero-phones">
-          <Phone src="/landing/app-home.jpg" alt={t("Ryms startsida: kvar till lön och kvar per kategori", "Ryms home screen: left until payday and left per category")} className="front" />
-          <Phone src="/landing/app-answer.jpg" alt={t("Svaret på en köpkoll: Ja, det ryms", "The answer to a purchase check: Yes, it fits")} className="back" />
         </div>
       </section>
 

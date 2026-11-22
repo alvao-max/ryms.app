@@ -269,7 +269,7 @@ export function RymsDetFlow({ categories, aiAvailable, aiConsent, demo, samples,
       {step === "start" && (
         <div className="flow-body">
           <h1>{t("Vad funderar du på?", "What are you thinking of buying?")}</h1>
-          <p className="muted">{t("Ta en bild på varan och prislappen, eller välj en skärmbild från en nätbutik.", "Take a photo of the item and its price tag, or pick a screenshot from an online shop.")}</p>
+          <p className="muted">{t("Ta en bild i butiken, eller ladda upp en bild du redan har – ett foto eller en skärmbild från en nätbutik.", "Take a photo in the shop, or upload an image you already have – a photo or a screenshot from a web shop.")}</p>
           <input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => onPick(e, "photo")} data-testid="camera-input" />
           <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={(e) => onPick(e, "screenshot")} data-testid="file-input" />
           <div className="choices">
@@ -287,8 +287,8 @@ export function RymsDetFlow({ categories, aiAvailable, aiConsent, demo, samples,
                 <ImageIcon size={22} />
               </span>
               <span>
-                <b>{t("Välj en skärmbild", "Choose a screenshot")}</b>
-                <small>{t("Från bildbiblioteket", "From your photo library")}</small>
+                <b>{t("Ladda upp en bild", "Upload an image")}</b>
+                <small>{t("Foto eller skärmbild från ditt bibliotek", "A photo or screenshot from your library")}</small>
               </span>
             </button>
             <button type="button" className="choice" onClick={() => setStep("confirm")} data-testid="manual">

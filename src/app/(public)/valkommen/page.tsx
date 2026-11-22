@@ -26,7 +26,7 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
         </p>
       )}
       <h1>Ryms det?</h1>
-      <p>{t("Fota det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.", "Does it fit? Snap what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.")}</p>
+      <p>{t("Fota eller ladda upp en bild på det du funderar på att köpa. Ryms räknar mot din budget, dina räkningar och ditt sparande – och du bestämmer.", "Does it fit? Snap or upload a picture of what you are thinking of buying. Ryms checks it against your budget, your bills and your savings – and you decide.")}</p>
       <div className="btn-row">
         <form action={startDemoAction}>
           <button className="btn" data-testid="start-demo">

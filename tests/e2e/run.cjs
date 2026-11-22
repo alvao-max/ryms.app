@@ -129,7 +129,7 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
       await page.click("[data-testid=cta]");
       await page.waitForSelector(".flow[data-step=start]");
       await expectText(page, ".flow", "Ta en bild");
-      await expectText(page, ".flow", "Välj en skärmbild");
+      await expectText(page, ".flow", "Ladda upp en bild");
       await expectText(page, ".flow", "Skriv själv");
       await shot(page, "04-ryms-det-start");
     });
@@ -521,8 +521,8 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
         await lp.screenshot({ path: path.join(SHOTS, w > 1000 ? "32-landning-dator-hela.png" : "33-landning-mobil-hela.png"), fullPage: true });
         if (w > 1000) {
           const copy = await lp.locator(".lp-hero-copy").boundingBox();
-          const phone = await lp.locator(".lp-phone.front").boundingBox();
-          assert(phone.x > copy.x + copy.width - 40, "på dator ska telefonen stå bredvid texten");
+          const photo = await lp.locator(".lp-hero-photo").boundingBox();
+          assert(photo.width >= 1439 && copy.x + copy.width < 1440 * 0.3, "på dator ska fotot fylla bredden och texten stå till vänster om telefonen");
         }
         await lp.click("[data-testid=start-demo]");
         await lp.waitForSelector("[data-testid=left-figure]");

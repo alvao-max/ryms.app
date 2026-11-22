@@ -2068,3 +2068,93 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     display: none;
   }
 }
+
+/* ═════════ Skogsgläntan: drivande dimma och ljus som andas ═════════ */
+.backdrop img.photo {
+  object-position: 50% 42%;
+}
+.backdrop .fog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 70%, transparent 100%);
+}
+.backdrop .fog-track {
+  display: flex;
+  width: 400%;
+  height: 100%;
+  will-change: transform;
+}
+.backdrop .fog-track img {
+  width: 50%;
+  height: 100%;
+  object-fit: fill;
+  flex: none;
+  animation: none;
+  transform: none;
+  filter: blur(6px);
+}
+.backdrop .fog.near {
+  top: 34%;
+  height: 46%;
+  opacity: 0.5;
+}
+.backdrop .fog.near .fog-track {
+  animation: fog-left 46s linear infinite;
+}
+.backdrop .fog.far {
+  top: 16%;
+  height: 44%;
+  opacity: 0.32;
+}
+.backdrop .fog.far .fog-track {
+  animation: fog-right 74s linear infinite;
+}
+@keyframes fog-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes fog-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+/* solstrålarna: ett svagt ljus som långsamt blir starkare och svagare */
+.backdrop .rays {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(118deg, rgba(255, 244, 205, 0) 30%, rgba(255, 244, 205, 0.22) 46%, rgba(255, 244, 205, 0) 62%);
+  mix-blend-mode: screen;
+  animation: rays 11s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes rays {
+  from {
+    opacity: 0.25;
+    transform: translate3d(-3%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(3%, 0, 0);
+  }
+}
+.backdrop::after {
+  z-index: 2;
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop .fog-track,
+  .backdrop .rays {
+    animation: none !important;
+  }
+}

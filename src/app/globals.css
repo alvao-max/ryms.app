@@ -2478,3 +2478,76 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 .chip-ring.neg .fill {
   stroke: var(--bad);
 }
+
+/* ═════════ Nedre menyn i Instagram-stil: en mörk pill med bara ikoner, som krymper vid skroll ═════════ */
+.shell {
+  padding-bottom: calc(100px + var(--safe-b));
+}
+.tabbar {
+  bottom: calc(18px + var(--safe-b));
+  gap: 0;
+  padding: 0 20px;
+}
+.tabbar::before {
+  display: none;
+}
+.tabbar nav {
+  flex: none;
+  width: min(100%, 340px);
+  max-width: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(22, 23, 25, 0.86);
+  backdrop-filter: blur(26px) saturate(1.6);
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  transform-origin: 50% 100%;
+  transition: transform 0.32s var(--ease), box-shadow 0.32s var(--ease);
+  will-change: transform;
+}
+.tabbar.compact nav {
+  transform: scale(0.82);
+}
+.tabbar nav a.tab,
+.tabbar nav a.tab[aria-current="page"] {
+  flex-direction: row;
+  height: 46px;
+  min-width: 0;
+  padding: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: none;
+  box-shadow: none;
+  transition: background 0.25s var(--ease), transform 0.15s var(--ease);
+}
+.tabbar nav a.tab .ico {
+  width: 25px;
+  height: 25px;
+}
+.tabbar nav a.tab[aria-current="page"] {
+  background: rgba(255, 255, 255, 0.16);
+}
+.tabbar nav a.tab:active,
+.tabbar .ask:active {
+  transform: scale(0.9);
+}
+.tabbar .ask {
+  justify-self: center;
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  border-radius: 50%;
+  background: var(--text);
+  color: #121116;
+  box-shadow: none;
+}
+.tabbar .ask .ask-ico {
+  width: 21px;
+  height: 21px;
+}

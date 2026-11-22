@@ -541,6 +541,22 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
         await c.close();
       }
     });
+    await step("Nedre menyn krymper när man skrollar ned och växer tillbaka när man skrollar upp", async () => {
+      const c = await browser.newContext({ ...devices["iPhone 14"], locale: "sv-SE" });
+      const tp = await c.newPage();
+      await tp.goto(`${BASE}/valkommen`);
+      await tp.click("[data-testid=start-demo]");
+      await tp.waitForSelector("[data-testid=left-figure]");
+      const cls = () => tp.locator("[data-testid=tabbar]").getAttribute("class");
+      assert(!(await cls()).includes("compact"), "menyn ska vara fullstor överst");
+      await tp.mouse.wheel(0, 700);
+      await tp.waitForFunction(() => document.querySelector("[data-testid=tabbar]").className.includes("compact"));
+      await tp.mouse.wheel(0, -200);
+      await tp.waitForFunction(() => !document.querySelector("[data-testid=tabbar]").className.includes("compact"));
+      await tp.click(".tabbar a[href='/plan']");
+      await tp.waitForSelector("[data-testid=plan-month]");
+      await c.close();
+    });
     await step("Ingen sida skrollar i sidled på iPhone", async () => {
       const { ctx: c3, page: p3 } = await demo(browser);
       for (const u of ["/", "/plan", "/sparat", "/transaktioner", "/installningar", "/installningar/bank", "/ryms-det"]) {

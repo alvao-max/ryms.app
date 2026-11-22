@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { logoutAction, switchDemoAction } from "@/app/actions";
-import { AskIcon, BankIcon, ListIcon, LogoutIcon, MenuIcon, PlanIcon, SavedIcon, SunIcon, UserIcon } from "./icons";
+import { AskIcon, HomeIcon, BankIcon, ListIcon, LogoutIcon, MenuIcon, PlanIcon, SavedIcon, SunIcon, UserIcon } from "./icons";
 import { useT } from "./Locale";
 import { SheetButton } from "./Sheet";
 
@@ -81,26 +81,40 @@ export function DemoBar({ current, budgets }: { current: string; budgets: { key:
 export function TabBar() {
   const path = usePathname();
   const t = useT();
+  // Som i Instagram: menyn krymper när man skrollar nedåt och växer tillbaka när man skrollar uppåt.
+  const [compact, setCompact] = useState(false);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 24) setCompact(false);
+      else if (y > last + 6) setCompact(true);
+      else if (y < last - 6) setCompact(false);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  useEffect(() => setCompact(false), [path]);
   const tab = (href: string, label: string, Ico: (p: { size?: number; weight?: "regular" | "fill" }) => React.ReactNode) => {
     const on = path === href;
     return (
-      <Link href={href} className="tab" aria-current={on ? "page" : undefined}>
-        <Ico size={23} weight={on ? "fill" : "regular"} />
-        <span className="tab-label">{label}</span>
+      <Link href={href} className="tab" aria-current={on ? "page" : undefined} aria-label={label}>
+        <Ico size={25} weight={on ? "fill" : "regular"} />
       </Link>
     );
   };
   return (
-    <div className="tabbar">
+    <div className={`tabbar${compact ? " compact" : ""}`} data-testid="tabbar">
       <nav aria-label={t("Huvudmeny", "Main menu")}>
-        {tab("/", t("Idag", "Today"), SunIcon)}
+        {tab("/", t("Idag", "Today"), HomeIcon)}
         {tab("/plan", "Plan", PlanIcon)}
         {tab("/sparat", t("Sparat", "Saved"), SavedIcon)}
         {tab("/transaktioner", t("Köp", "Spending"), ListIcon)}
+        <Link href="/ryms-det" className="ask" aria-label={t("Ryms det? Kolla ett köp", "Ryms det? Check a purchase")} data-testid="ask-fab">
+          <AskIcon size={22} />
+        </Link>
       </nav>
-      <Link href="/ryms-det" className="ask" aria-label={t("Ryms det? Kolla ett köp", "Ryms det? Check a purchase")} data-testid="ask-fab">
-        <AskIcon size={26} />
-      </Link>
     </div>
   );
 }

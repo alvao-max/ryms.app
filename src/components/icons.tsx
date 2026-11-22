@@ -43,6 +43,7 @@ export const BackIcon = make(CaretLeft);
 export const NextIcon = make(CaretRight);
 export const UserIcon = make(UserCircle);
 export const SunIcon = make(Sun);
+export const HomeIcon = make(House);
 export const PlanIcon = make(CalendarDots);
 export const SavedIcon = make(BookmarkSimple);
 export const CameraIcon = make(Camera);

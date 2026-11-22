@@ -4,15 +4,15 @@
  * två typsnitt (Castoro för rubriker – närmast logotypen – och Geist för allt annat) och ett 4-punkters rutnät.
  */
 :root {
-  --bg: #0d0c11;
-  --surface: #17161d;
-  --raised: #22212b;
-  --raised-2: #2d2b38;
+  --bg: #0e0f0d;
+  --surface: #191b18;
+  --raised: #242723;
+  --raised-2: #2f332e;
   --hair: rgba(255, 255, 255, 0.07);
   --text: #f5f3ee;
   --text-2: rgba(245, 243, 238, 0.66);
   --text-3: rgba(245, 243, 238, 0.44);
-  --violet: #bcaaf7;
+  --violet: #b9cfa6; /* dämpad salviagrön – den enda bifärgen */
   --good: #9fd6a0;
   --warn: #f0c27a;
   --bad: #f29a8a;
@@ -186,7 +186,7 @@ body:has([data-testid="result"]) .backdrop {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.6) 0%, rgba(13, 12, 17, 0.3) 26%, rgba(13, 12, 17, 0.42) 56%, rgba(13, 12, 17, 0.88) 84%, var(--bg) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.6) 0%, rgba(14, 15, 13, 0.3) 26%, rgba(14, 15, 13, 0.42) 56%, rgba(14, 15, 13, 0.88) 84%, var(--bg) 100%);
 }
 .landscape {
   position: absolute;
@@ -208,7 +208,7 @@ body:has([data-testid="result"]) .backdrop {
   gap: 8px;
   padding: calc(6px + var(--safe-t)) 16px 6px 20px;
   font-size: 12px;
-  background: rgba(13, 12, 17, 0.55);
+  background: rgba(14, 15, 13, 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -458,7 +458,7 @@ body:has([data-testid="result"]) .backdrop {
 .page-head p,
 .month-nav h1,
 .month-nav .caps {
-  text-shadow: 0 1px 12px rgba(13, 12, 17, 0.45);
+  text-shadow: 0 1px 12px rgba(14, 15, 13, 0.45);
 }
 
 /* ── Sidor ── */
@@ -509,12 +509,10 @@ body:has([data-testid="result"]) .backdrop {
   padding: 18px 20px;
   border-radius: var(--r-card);
   background: var(--surface);
-  box-shadow: inset 0 0 0 1px var(--hair);
 }
 .card.glow,
 .ask-card {
-  background: #1c1929;
-  box-shadow: inset 0 0 0 1px rgba(188, 170, 247, 0.14);
+  background: var(--surface);
 }
 .card-head {
   display: flex;
@@ -666,7 +664,7 @@ p .linkish,
   color: var(--text);
 }
 .badge.lilac {
-  background: rgba(188, 170, 247, 0.16);
+  background: rgba(185, 207, 166, 0.16);
   color: var(--violet);
 }
 .badge.good {
@@ -701,7 +699,7 @@ p .linkish,
   color: var(--text);
 }
 .note.lilac {
-  background: rgba(188, 170, 247, 0.1);
+  background: rgba(185, 207, 166, 0.1);
   color: var(--text);
 }
 .note .ico {
@@ -1072,7 +1070,7 @@ p .linkish,
   gap: 2px;
   padding: 5px;
   border-radius: 999px;
-  background: rgba(29, 28, 37, 0.86);
+  background: rgba(26, 28, 25, 0.86);
   backdrop-filter: blur(24px) saturate(1.6);
   -webkit-backdrop-filter: blur(24px) saturate(1.6);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -1125,13 +1123,13 @@ dialog.sheet {
   border: 0;
   border-radius: 24px 24px 0 0;
   color: var(--text);
-  background: #1b1a23;
+  background: #1c1e1b;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 -20px 60px rgba(0, 0, 0, 0.5);
   overflow: auto;
   overscroll-behavior: contain;
 }
 dialog.sheet::backdrop {
-  background: rgba(6, 5, 9, 0.6);
+  background: rgba(6, 7, 6, 0.6);
 }
 dialog.sheet[open] {
   animation: rise 0.32s var(--ease);
@@ -1371,7 +1369,7 @@ dialog.sheet[open] {
   color: rgba(255, 255, 255, 0.84);
 }
 .welcome .landscape::after {
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.45) 0%, rgba(13, 12, 17, 0.05) 28%, rgba(13, 12, 17, 0.2) 48%, rgba(13, 12, 17, 0.82) 76%, var(--bg) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.45) 0%, rgba(14, 15, 13, 0.05) 28%, rgba(14, 15, 13, 0.2) 48%, rgba(14, 15, 13, 0.82) 76%, var(--bg) 100%);
 }
 .welcome .btn.ghost {
   background: rgba(255, 255, 255, 0.12);
@@ -1436,7 +1434,7 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop {
   height: 240px;
 }
 body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.62) 0%, rgba(13, 12, 17, 0.66) 40%, rgba(13, 12, 17, 0.9) 78%, var(--bg) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.62) 0%, rgba(14, 15, 13, 0.66) 40%, rgba(14, 15, 13, 0.9) 78%, var(--bg) 100%);
 }
 
 /* Inloggningsbilden: blomsterspiralen vajar långsamt, som i vinden */
@@ -1457,17 +1455,17 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   }
 }
 .welcome .landscape::after {
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.42) 0%, rgba(13, 12, 17, 0.08) 22%, rgba(13, 12, 17, 0.12) 44%, rgba(13, 12, 17, 0.8) 72%, rgba(13, 12, 17, 0.96) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.42) 0%, rgba(14, 15, 13, 0.08) 22%, rgba(14, 15, 13, 0.12) 44%, rgba(14, 15, 13, 0.8) 72%, rgba(14, 15, 13, 0.96) 100%);
 }
 .auth .landscape {
   bottom: 0;
   height: auto;
 }
 .auth .landscape::after {
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.5) 0%, rgba(13, 12, 17, 0.72) 30%, rgba(13, 12, 17, 0.9) 62%, rgba(13, 12, 17, 0.97) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.5) 0%, rgba(14, 15, 13, 0.72) 30%, rgba(14, 15, 13, 0.9) 62%, rgba(14, 15, 13, 0.97) 100%);
 }
 .auth .field input {
-  background: rgba(30, 29, 38, 0.72);
+  background: rgba(28, 30, 27, 0.72);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -1588,7 +1586,7 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(13, 12, 17, 0.62) 0%, rgba(13, 12, 17, 0.3) 30%, rgba(13, 12, 17, 0.36) 60%, rgba(13, 12, 17, 0.9) 90%, var(--bg) 100%);
+  background: linear-gradient(180deg, rgba(14, 15, 13, 0.62) 0%, rgba(14, 15, 13, 0.3) 30%, rgba(14, 15, 13, 0.36) 60%, rgba(14, 15, 13, 0.9) 90%, var(--bg) 100%);
 }
 .lp-hero-copy {
   max-width: 560px;
@@ -1603,7 +1601,7 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   line-height: 0.98;
   letter-spacing: -0.03em;
   margin-top: 12px;
-  text-shadow: 0 2px 30px rgba(13, 12, 17, 0.4);
+  text-shadow: 0 2px 30px rgba(14, 15, 13, 0.4);
 }
 .lp-hero-copy p {
   margin-top: 18px;
@@ -1611,7 +1609,7 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   font-size: clamp(16px, 1.5vw, 19px);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.88);
-  text-shadow: 0 1px 14px rgba(13, 12, 17, 0.45);
+  text-shadow: 0 1px 14px rgba(14, 15, 13, 0.45);
 }
 .lp-cta {
   display: flex;
@@ -1815,7 +1813,7 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, var(--bg) 0%, rgba(13, 12, 17, 0) 12%, rgba(13, 12, 17, 0) 82%, var(--bg) 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(14, 15, 13, 0) 12%, rgba(14, 15, 13, 0) 82%, var(--bg) 100%);
   pointer-events: none;
 }
 @media (min-width: 900px) {
@@ -1867,4 +1865,16 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     width: 100%;
     min-width: 0;
   }
+}
+
+/* Lugnare nedre del: neutrala rubriketiketter och luft mellan korten */
+.stack {
+  gap: 10px;
+}
+.ask-top .caps,
+.lead-row .caps {
+  color: var(--text-2);
+}
+.card {
+  padding: 20px;
 }

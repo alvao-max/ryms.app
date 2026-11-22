@@ -7,7 +7,7 @@ Stack: Next.js 16 (App Router, TypeScript), SQLite via `better-sqlite3`, egen in
 ## Vad som finns här
 
 - **Appen** (endast mobil): startsida, månadsplan, ”Ryms det?”, sparat, köp och inställningar. På en bredare skärm visas den som en telefonbred kolumn.
-- **Landningssidan** på `/` för den som inte är inloggad – fungerar på dator och mobil och leder in i demon.
+- **Landningssidan** på `/` är hemsidan: den visas för den som besöker adressen utan att vara inloggad, på dator och mobil. Själva appen öppnar på välkomstskärmen `/valkommen`.
 - **Svenska och engelska**; språk och visningsvaluta väljs på välkomstskärmen respektive under Inställningar.
 - **Körbar förhandsvisning** i en enda HTML-fil, utan server: `node preview/build.mjs` skriver `preview/dist/index.html`. Allt ligger i minnet och försvinner vid omladdning.
 

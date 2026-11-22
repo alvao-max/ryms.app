@@ -8,3 +8,4 @@ next-env.d.ts
 tests/e2e/shots
 preview/dist
 tests/preview/ryms-preview.html
+preview/dist-landing

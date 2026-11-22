@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "Ryms",
     description: "Ryms det i budgeten?",
     lang: "sv",
-    start_url: "/",
+    start_url: "/valkommen", // appen öppnar på välkomstskärmen (inloggade skickas vidare till översikten)
     display: "standalone",
     background_color: "#0b0e0d",
     theme_color: "#0b0e0d",

@@ -34,6 +34,7 @@ import { cookieJar, RedirectError, state } from "./shims/runtime";
 import { setSqlModule } from "./shims/sqlite";
 
 declare const __ASSETS__: Record<string, string>;
+declare const __START__: string;
 type Comp = (props: Record<string, unknown>) => unknown;
 const ROUTES: Record<string, { page: Comp; layout?: Comp }> = {
   "/": { page: Home as Comp, layout: AppLayout as Comp },
@@ -154,5 +155,5 @@ new MutationObserver((list) => {
 
 (async () => {
   setSqlModule(await initSqlJs());
-  navigate("/");
+  navigate(__START__);
 })();

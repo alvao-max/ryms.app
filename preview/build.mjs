@@ -35,7 +35,9 @@ for (const f of ["bg/hero.jpg", "bg/login.jpg", "landing/hero.jpg", "brand/ryms-
   assets["/" + f] = `data:${mime[path.extname(f)]};base64,${fs.readFileSync(path.join(root, "public", f)).toString("base64")}`;
 }
 
-const out = path.join(here, "dist");
+// Appen startar på välkomstskärmen; med PREVIEW=landing byggs i stället hemsidans landningssida.
+const landing = process.env.PREVIEW === "landing";
+const out = path.join(here, landing ? "dist-landing" : "dist");
 await build({
   entryPoints: [path.join(here, "main.tsx")],
   outdir: out,
@@ -47,7 +49,7 @@ await build({
   tsconfig: path.join(root, "tsconfig.json"),
   loader: { ".woff2": "dataurl", ".woff": "dataurl" },
   inject: [shim("globals.ts")],
-  define: { "process.env.NODE_ENV": '"production"', __ASSETS__: JSON.stringify(assets), global: "globalThis" },
+  define: { "process.env.NODE_ENV": '"production"', __ASSETS__: JSON.stringify(assets), __START__: JSON.stringify(landing ? "/" : "/valkommen"), global: "globalThis" },
   alias: {
     "better-sqlite3": shim("sqlite.ts"),
     "next/headers": shim("next-headers.ts"),
@@ -73,7 +75,7 @@ const css = fs.readFileSync(path.join(out, "main.css"), "utf8");
 const html = `<!DOCTYPE html>
 <html lang="sv"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Ryms</title>
+<title>${landing ? "Ryms – landningssida" : "Ryms"}</title>
 <style>${css}</style></head>
 <body><div id="app"></div>
 <script>${js}</script></body></html>`;

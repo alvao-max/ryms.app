@@ -30,9 +30,9 @@ export async function Landing() {
     { icon: <CheckIcon size={22} />, title: t("Du bestämmer", "You decide"), text: t("Du får svaret i kronor och ser varför. Inget ändras i budgeten förrän du själv säger att du köpte den.", "You get the answer in kronor and see why. Nothing changes in your budget until you say you bought it.") },
   ];
   const answers = [
-    { tone: "good", head: t("Ja, det ryms", "Yes, it fits"), text: t("Du har 900 kr kvar till kläder. Efter köpet på 699 kr har du 201 kr kvar, och ditt planerade sparande ryms fortfarande.", "You have 900 kr left for clothes. After this 699 kr purchase you have 201 kr left, and your planned saving still fits.") },
-    { tone: "bad", head: t("Det ryms inte i budgeten", "It doesn't fit the budget"), text: t("Du har 400 kr kvar till kläder. Köpet kostar 699 kr, så det fattas 299 kr i budgeten för kläder.", "You have 400 kr left for clothes. The purchase costs 699 kr, so your clothes budget is 299 kr short.") },
-    { tone: "warn", head: t("Vänta till efter lön", "Wait until after payday"), text: t("Det ryms i budgeten för kläder. Däremot skulle du sakna 180 kr till elräkningen på fredag.", "It fits your clothes budget. However, you would be 180 kr short for the electricity bill on Friday.") },
+    { tone: "good", head: t("Ja, det ryms", "Yes, it fits"), text: t("Du har 1 400 kr kvar till träning. Efter köpet på 995 kr har du 405 kr kvar, och ditt planerade sparande ryms fortfarande.", "You have 1 400 kr left for fitness. After this 995 kr purchase you have 405 kr left, and your planned saving still fits.") },
+    { tone: "bad", head: t("Det ryms inte i budgeten", "It doesn't fit the budget"), text: t("Du har 600 kr kvar till träning. Köpet kostar 995 kr, så det fattas 395 kr i budgeten för träning.", "You have 600 kr left for fitness. The purchase costs 995 kr, so your fitness budget is 395 kr short.") },
+    { tone: "warn", head: t("Vänta till efter lön", "Wait until after payday"), text: t("Det ryms i budgeten för träning. Däremot skulle du sakna 240 kr till elräkningen på fredag.", "It fits your fitness budget. However, you would be 240 kr short for the electricity bill on Friday.") },
   ];
   const trust = [
     { icon: <BankIcon size={22} />, title: t("Bara läsbehörighet", "Read-only access"), text: t("Bankkoppling är frivillig. Ryms kan läsa saldo och transaktioner, men aldrig betala, föra över pengar eller ändra kort.", "Connecting a bank is optional. Ryms can read balances and transactions, but never pay, transfer money or change cards.") },
@@ -106,7 +106,7 @@ export async function Landing() {
         <div className="lp-grid">
           {answers.map((a, i) => (
             <article className="card" key={i}>
-              <span className={`badge ${a.tone}`}>{t("Vinterjacka · 699 kr", "Winter jacket · 699 kr")}</span>
+              <span className={`badge ${a.tone}`}>{t("Löparskor · 995 kr", "Running shoes · 995 kr")}</span>
               <h3 className="serif">{a.head}</h3>
               <p>{a.text}</p>
             </article>

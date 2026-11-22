@@ -2551,3 +2551,18 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   width: 21px;
   height: 21px;
 }
+
+/* Menyn följer skrollen steglöst: --shrink går från 0 (full storlek) till 1 (minst) */
+.tabbar {
+  --shrink: 0;
+}
+.tabbar nav,
+.tabbar.compact nav {
+  transform: scale(calc(1 - 0.18 * var(--shrink)));
+  transition: transform 0.18s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tabbar nav {
+    transform: none;
+  }
+}

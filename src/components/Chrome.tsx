@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useTransition } from "react";
 import { logoutAction, switchDemoAction } from "@/app/actions";
 import { AskIcon, HomeIcon, BankIcon, ListIcon, LogoutIcon, MenuIcon, PlanIcon, SavedIcon, SunIcon, UserIcon } from "./icons";
 import { useT } from "./Locale";
@@ -81,21 +81,34 @@ export function DemoBar({ current, budgets }: { current: string; budgets: { key:
 export function TabBar() {
   const path = usePathname();
   const t = useT();
-  // Som i Instagram: menyn krymper när man skrollar nedåt och växer tillbaka när man skrollar uppåt.
-  const [compact, setCompact] = useState(false);
+  // Som i Instagram: menyn krymper mjukt i takt med att man skrollar nedåt och växer tillbaka
+  // i takt med att man skrollar uppåt. Storleken följer fingret i stället för att slå om vid en gräns.
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
     let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (y < 24) setCompact(false);
-      else if (y > last + 6) setCompact(true);
-      else if (y < last - 6) setCompact(false);
-      last = y;
+    let p = 0; // 0 = full storlek, 1 = minst
+    let frame = 0;
+    const apply = () => {
+      frame = 0;
+      el.style.setProperty("--shrink", p.toFixed(3));
+      el.dataset.compact = p > 0.5 ? "1" : "0";
     };
+    const onScroll = () => {
+      const y = Math.max(0, window.scrollY);
+      const dy = y - last;
+      last = y;
+      p = y < 8 ? 0 : Math.min(1, Math.max(0, p + dy / 160));
+      if (!frame) frame = requestAnimationFrame(apply);
+    };
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  useEffect(() => setCompact(false), [path]);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [path]);
   const tab = (href: string, label: string, Ico: (p: { size?: number; weight?: "regular" | "fill" }) => React.ReactNode) => {
     const on = path === href;
     return (
@@ -105,7 +118,7 @@ export function TabBar() {
     );
   };
   return (
-    <div className={`tabbar${compact ? " compact" : ""}`} data-testid="tabbar">
+    <div className="tabbar" data-testid="tabbar" ref={ref}>
       <nav aria-label={t("Huvudmeny", "Main menu")}>
         {tab("/", t("Idag", "Today"), HomeIcon)}
         {tab("/plan", "Plan", PlanIcon)}

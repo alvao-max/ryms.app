@@ -165,6 +165,18 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
       await page.waitForSelector("[data-testid=category-ask]", { state: "detached" });
       await expectText(page, "[data-testid=cat-Hem]", "351 kr");
     });
+    await step("Klockan uppe till vänster visar det som väntar och leder dit", async () => {
+      const { ctx: c4, page: bp } = await demo(browser);
+      await expectText(bp, "[data-testid=notices] .bell-count", "3");
+      await bp.click("[data-testid=notices]");
+      await expectText(bp, "dialog[open]", "2 köp saknar kategori");
+      await expectText(bp, "dialog[open]", "Mobilabonnemang förfaller imorgon");
+      await expectText(bp, "dialog[open]", "Elräkningen förfaller på fredag");
+      await shot(bp, "34-att-gora");
+      await bp.click("dialog[open] a[href='/plan']");
+      await bp.waitForSelector("[data-testid=plan-month]");
+      await c4.close();
+    });
     await step("Inget ändras i budgeten förrän användaren bekräftar", async () => {
       await page.goto(`${BASE}/`);
       await expectText(page, "[data-testid=cat-Kläder]", "900 kr");

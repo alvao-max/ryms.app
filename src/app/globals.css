@@ -2884,3 +2884,30 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.8) 34vw, rgba(var(--lp-dark), 0.8) 100%);
   }
 }
+
+/* Klockan i toppfältet: det som väntar på dig */
+.iconbtn.bell {
+  position: relative;
+}
+.bell-count {
+  position: absolute;
+  top: 6px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--text);
+  color: #121116;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+.menu.notices a {
+  align-items: center;
+}
+.menu.notices .ico {
+  color: var(--text-3);
+}

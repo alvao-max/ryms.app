@@ -70,10 +70,9 @@ const norm = (s) => s.replace(/ /g, " ").replace(/\s+/g, " ").trim();
   await step("Sparat, Transaktioner och Bank öppnas", async () => {
     await page.click(".tabbar a[href='/sparat']");
     await has(".page-head", "Sparat");
-    await page.click(".topbar .iconbtn >> nth=0");
-    await page.click("dialog[open] a[href='/transaktioner']");
+    await page.click(".tabbar a[href='/transaktioner']");
     await has(".page", "ICA");
-    await page.click(".topbar .iconbtn >> nth=0");
+    await page.click(".topbar .iconbtn >> nth=1");
     await page.click("dialog[open] a[href='/installningar']");
     await has("[data-testid=bank-status]", "Demobank");
   });

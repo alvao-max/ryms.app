@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useTransition } from "react";
 import { logoutAction, switchDemoAction } from "@/app/actions";
-import { AskIcon, HomeIcon, BankIcon, ListIcon, LogoutIcon, MenuIcon, PlanIcon, SavedIcon, SunIcon, UserIcon } from "./icons";
+import { AskIcon, BellIcon, NextIcon, HomeIcon, BankIcon, ListIcon, LogoutIcon, MenuIcon, PlanIcon, SavedIcon, SunIcon, UserIcon } from "./icons";
 import { useT } from "./Locale";
 import { SheetButton } from "./Sheet";
 
@@ -14,25 +14,39 @@ export function Mark() {
   return <img className="mark" src="/brand/ryms-wordmark.png" alt="Ryms" width={777} height={306} />;
 }
 
-export function TopBar({ name, email, demo }: { name: string; email: string; demo: boolean }) {
+export function TopBar({ name, email, demo, notices }: { name: string; email: string; demo: boolean; notices: { title: string; text: string; href: string }[] }) {
   const t = useT();
   return (
     <header className="topbar">
-      <SheetButton className="iconbtn" ariaLabel={t("Meny", "Menu")} title="Ryms" label={<MenuIcon size={24} />}>
-        <nav className="menu">
-          <Link href="/transaktioner">
-            <ListIcon /> {t("Transaktioner", "Transactions")}
-          </Link>
-          <Link href="/installningar">
-            <BankIcon /> {t("Inställningar", "Settings")}
-          </Link>
-          <Link href="/sparat">
-            <SavedIcon /> {t("Sparade saker", "Saved items")}
-          </Link>
-          <Link href="/plan">
-            <PlanIcon /> {t("Månadsplan och sparmål", "Monthly plan and savings goals")}
-          </Link>
-        </nav>
+      <SheetButton
+        className="iconbtn bell"
+        testId="notices"
+        ariaLabel={notices.length ? t(`Att göra: ${notices.length}`, `To do: ${notices.length}`) : t("Att göra: inget väntar", "To do: nothing waiting")}
+        title={t("Att göra", "To do")}
+        label={
+          <>
+            <BellIcon size={24} />
+            {notices.length > 0 && <span className="bell-count">{notices.length}</span>}
+          </>
+        }
+      >
+        {notices.length === 0 ? (
+          <p className="muted" style={{ paddingBottom: 8 }}>
+            {t("Inget väntar på dig just nu.", "Nothing is waiting for you right now.")}
+          </p>
+        ) : (
+          <nav className="menu notices">
+            {notices.map((n, i) => (
+              <Link href={n.href} key={i}>
+                <span className="grow">
+                  <span className="title" style={{ display: "block" }}>{n.title}</span>
+                  <span className="sub" style={{ display: "block" }}>{n.text}</span>
+                </span>
+                <NextIcon size={18} />
+              </Link>
+            ))}
+          </nav>
+        )}
       </SheetButton>
       <Link href="/" className="mark-link" aria-label={t("Ryms, till startsidan", "Ryms, go to home")}>
         <Mark />

@@ -1,6 +1,7 @@
 import {
   ArrowsClockwise,
   Bank,
+  Bell,
   BookmarkSimple,
   CalendarDots,
   Camera,
@@ -38,6 +39,7 @@ const make = (C: Icon) =>
   };
 
 export const MenuIcon = make(List);
+export const BellIcon = make(Bell);
 export const CloseIcon = make(X);
 export const BackIcon = make(CaretLeft);
 export const NextIcon = make(CaretRight);

@@ -2868,3 +2868,19 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
 body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 45%, rgba(12, 12, 13, 0.9) 80%, var(--bg) 100%);
 }
+
+/* Landningssidan på mobil: tillbaka till den tidigare inramningen (utzoomad, text direkt under telefonen) */
+@media (max-width: 899px) {
+  .lp-art {
+    top: -62.600vw;
+    left: -46.300vw;
+    width: 220vw;
+  }
+  .lp-hero-copy {
+    padding-top: 114vw;
+  }
+  .lp-hero-copy::before {
+    top: 96vw;
+    background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.8) 34vw, rgba(var(--lp-dark), 0.8) 100%);
+  }
+}

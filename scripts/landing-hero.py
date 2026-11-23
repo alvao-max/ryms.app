@@ -8,7 +8,7 @@ from PIL import Image, ImageFilter, ImageChops
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 A = lambda *p: os.path.join(ROOT, *p)
-K = 2  # arbetsskala
+K = 3  # arbetsskala
 # Telefonens läge i originalbilden (1143 x 1996): mittpunkt och höjd
 CX, CY, PH = 500, 772, 500
 
@@ -19,7 +19,7 @@ m = np.array(marked).astype(int)
 red = ((m[..., 0] > 170) & (m[..., 1] < 75) & (m[..., 2] < 75)).astype(np.uint8) * 255
 redmask = Image.fromarray(red).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(2))
 base = Image.composite(clean, marked, redmask)
-base = base.resize((base.width * K, base.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2))
+base = base.resize((base.width * K, base.height * K), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=3, percent=95, threshold=2)).filter(ImageFilter.UnsharpMask(radius=1, percent=40, threshold=3))
 
 phone = Image.open(A("assets/landing/phone.png")).convert("RGBA")
 h = PH * K
@@ -48,9 +48,9 @@ ramp[:] = np.clip((ys - top) / max(1, bot - top), 0, 1)
 front = ImageChops.multiply(fol, Image.fromarray((ramp * 255).astype(np.uint8)))
 out = Image.composite(base, out, front)
 
-W = 2000
+W = 2800
 out = out.resize((W, int(out.height * W / out.width)), Image.LANCZOS)
-out.save(A("public/landing/spiral.jpg"), quality=84, optimize=True, progressive=True)
+out.save(A("public/landing/spiral.jpg"), quality=86, optimize=True, progressive=True)
 print("public/landing/spiral.jpg", out.size, os.path.getsize(A("public/landing/spiral.jpg")) // 1024, "kB")
 s = W / 1143
 out.crop((int((CX - 330) * s), int((CY - 330) * s), int((CX + 330) * s), int((CY + 330) * s))).resize((900, 900)).save("/tmp/claude-0/-home-user-ryms-app/065d15f7-ef26-57a3-a390-63ae83b79f8d/scratchpad/spiral-check.jpg", quality=88)

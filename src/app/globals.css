@@ -2852,3 +2852,19 @@ body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
     background: linear-gradient(180deg, rgba(var(--lp-dark), 0) 0, rgba(var(--lp-dark), 0.72) 20vw, rgba(var(--lp-dark), 0.84) 40vw, rgba(var(--lp-dark), 0.84) 100%);
   }
 }
+
+/* ═════════ Mörka kullar med ljusstrimmor. Bilden är mycket mörk, så slöjan är nästan obefintlig. ═════════ */
+.backdrop img.photo,
+.backdrop img.wave {
+  object-position: 50% 30%;
+}
+.backdrop img.wave {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.04) 70%, rgba(12, 12, 13, 0.8) 88%, var(--bg) 100%);
+}
+body:not(:has(.shell.home)):not(:has([data-testid="result"])) .backdrop::after {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.2) 45%, rgba(12, 12, 13, 0.9) 80%, var(--bg) 100%);
+}

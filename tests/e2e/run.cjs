@@ -359,6 +359,20 @@ const shot = (page, name, full = false) => page.screenshot({ path: path.join(SHO
       await p2.fill("input[name=password]", "ett-langt-losenord");
       await p2.click("button.btn");
       await p2.waitForURL(`${BASE}/kom-igang`);
+      // Välkomstvisningen kommer först: sex bilder, med Nästa, Tillbaka och Hoppa över.
+      await expectText(p2, "[data-testid=intro] h1", "Välkommen, Maja");
+      await shot(p2, "35-intro-1");
+      for (const [key, needle] of [["fota", "Fota, ladda upp eller skriv"], ["svar", "du bestämmer"], ["koll", "kvar till lön"], ["siffror", "Exempelsiffror"], ["roster", "Exempelomdömen"]]) {
+        await p2.click("[data-testid=intro-next]");
+        await p2.waitForSelector(`[data-testid=intro][data-slide=${key}]`);
+        // textContent, inte innerText: etiketten visas i versaler via CSS.
+        assert(((await p2.locator("[data-testid=intro]").textContent()) || "").includes(needle), `väntade "${needle}" på bilden ${key}`);
+        await p2.waitForTimeout(1300);
+        await shot(p2, `36-intro-${key}`);
+      }
+      assert((await p2.locator("[data-testid=intro-skip]").count()) === 0, "sista bilden ska inte ha Hoppa över");
+      await p2.click("[data-testid=intro-next]");
+      await p2.waitForSelector("[data-testid=onboarding]");
       await shot(p2, "19-kom-igang");
       await p2.click("[data-testid=ob-next]");
       await p2.fill("[data-testid=ob-payday]", "2026-11-25");

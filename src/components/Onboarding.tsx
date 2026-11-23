@@ -6,10 +6,18 @@ import { makeT, type Locale } from "@/lib/i18n";
 import { parseKr } from "@/lib/money";
 import { BackIcon, PlusIcon, TrashIcon } from "./icons";
 import { Mark } from "./Chrome";
+import { Intro } from "./Intro";
 
 const STEPS = ["hej", "lon", "rakningar", "budget", "sparmal", "saldo"];
 
-export function Onboarding({ name, today, suggestedPayday, locale = "sv" }: { name: string; today: string; suggestedPayday: string; locale?: Locale }) {
+export function Onboarding(props: { name: string; today: string; suggestedPayday: string; locale?: Locale }) {
+  // Först välkomstvisningen, sedan inställningen av månaden.
+  const [intro, setIntro] = useState(true);
+  if (intro) return <Intro name={props.name} locale={props.locale} onDone={() => setIntro(false)} />;
+  return <Setup {...props} />;
+}
+
+function Setup({ name, today, suggestedPayday, locale = "sv" }: { name: string; today: string; suggestedPayday: string; locale?: Locale }) {
   const t = makeT(locale);
   const [step, setStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
